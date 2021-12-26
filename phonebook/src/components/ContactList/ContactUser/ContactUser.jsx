@@ -1,13 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
+import s from './ContactUser.module.css'
 
 
 const ContactUser = ({ id, name, number, onDeleteContacts }) => {
   return (
-    <li >
-      <span >{name}</span>
-      <span >{number}</span>
+    <li className={s.contactItem}>
+      <span className={s.name}>{name}</span>
+      <span className={s.phone}>{number}</span>
       <button
+        className={s.btnDelete}
         type="button"
         onClick={() => onDeleteContacts(id)}
       >
@@ -15,7 +17,7 @@ const ContactUser = ({ id, name, number, onDeleteContacts }) => {
       </button>
     </li>
   );
-};
+}
 
 export default ContactUser;
 

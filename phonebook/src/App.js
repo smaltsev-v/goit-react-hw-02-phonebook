@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import ContactForm from './components/ContactForm';
 import ContactList from './components/ContactList';
 import Filter from './components/Filter';
+import './App.css'
 
 import { v4 as uid } from "uuid";
 import contacts from './data/contacts.json'
@@ -52,11 +53,11 @@ class App extends Component {
     );
 
      return (
-       <div >
-         <h1>Phonebook</h1>
+       <div className="container" >
+         <h1 className="title">Phonebook</h1>
          <ContactForm onSubmit={this.formSubmitHandler} />
 
-         <h2 >Contacts</h2>
+         <h2 className="title" >Contacts</h2>
          <Filter value={filter} onChange={this.onChangeFilter} />
          <ContactList
            contacts={filterUser}
