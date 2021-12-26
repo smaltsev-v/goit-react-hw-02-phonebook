@@ -1,8 +1,10 @@
 import React, { Component } from "react";
-import ContactForm from "./componets/ContactF";
-
+import ContactForm from './components/ContactForm';
+import ContactList from './components/ContactList';
+import Filter from './components/Filter';
 
 import { v4 as uid } from "uuid";
+import contacts from './data/contacts.json'
 
 
 class App extends Component {
@@ -28,20 +30,40 @@ class App extends Component {
 
     console.log({ name, number });
   };
+   deleteContact = (contactId) => {
+    this.setState((prevState) => ({
+      contacts: prevState.contacts.filter(
+        (contact) => contact.id !== contactId
+      ),
+    }));
+  };
 
-  
-
-  
-
-  render() {
+  onChangeFilter = (event) => {
     
+    this.setState({ filter: event.currentTarget.value });
+  };
+   render() {
+    const { contacts, filter } = this.state;
 
-    return (
-      <div className="container">
-        <h1 className="title">Phonebook</h1>
-        <ContactForm onSubmit={this.formSubmitHandler} />
-      </div>
+    const normalizedFilter = filter.toLowerCase();
+
+    const filterUser = contacts.filter((contact) =>
+      contact.name.toLowerCase().includes(normalizedFilter)
     );
+
+     return (
+       <div >
+         <h1>Phonebook</h1>
+         <ContactForm onSubmit={this.formSubmitHandler} />
+
+         <h2 >Contacts</h2>
+         <Filter value={filter} onChange={this.onChangeFilter} />
+         <ContactList
+           contacts={filterUser}
+           onDeleteContacts={this.deleteContact}
+         />
+       </div>
+     );
   }
 }
 
